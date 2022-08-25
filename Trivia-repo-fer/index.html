@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrikiTrivia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="scripts/main.js" defer></script>
+</head>
+
+<body>
+    
+    <div id="outter-wrapper">
+        <h1 id="logo">FrikiTrivia</h1>
+        <div id="landing">
+            <div id="intro">Are you ready to challenge yourself?</div>
+            <br>
+            <button id="play-btn">Play</button>
+        </div>
+
+        <div id="game">
+            <div id="life">Life: 3</div>
+            <div id="scoreCount">Score: 0</div>
+            <div id="questionCount">0/10</div>
+            <button id="question-btn">Get a question</button>
+            <div id="question"></div>
+            <div id="solution"></div>
+            <div id="next-btn" class="btn">Next</div>
+        </div>
+
+        <div id="score">
+            <div id="finalScore">Your final score is: </div>
+            <div id="replay-btn" class="btn">Play again</div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+#logo {
+    font-family: 'Open Sans', sans-serif;
+    color:#AA008F;
+}
+
+.btn {
+    display: inline-block;
+    margin:5px;
+    padding: 10px;
+    background-color: rgb(183, 183, 183);
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+}
+
+.wrong {
+    background-color: rgb(250, 41, 22);
+}
+
+.right {
+    background-color: rgb(100, 253, 164);
+}
+
+#question-btn {
+    display: none;
+}
+
+#play-btn {
+    /* display: none; */
+}
+
+#next-btn {
+    display: none;
+}
+
+#next-btn:hover {
+    background-color:#AA008F;
+    
+}
+
+#score {
+    display: none;
+}
+
+
+#game {
+    display: none;
+}
