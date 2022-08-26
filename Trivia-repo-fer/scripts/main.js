@@ -10,7 +10,7 @@ const GAME = {
 
   async loadQuestions() {
     await axios
-      .get("https://opentdb.com/api.php?amount=10&category=31")
+      .get("https://opentdb.com/api.php?amount=10&category=31&type=multiple")
       .then((questions) => {
         console.log(this);
         console.log(questions.data.results);
@@ -57,8 +57,9 @@ const GAME = {
   },
 
   createMultipleQuestion() {
-    let wrongAnswer = this.questions[this.questionCount].incorrect_answers[0];
+    let wrongAnswer = this.questions[this.questionCount].incorrect_answers;
     let rightAnswer = this.questions[this.questionCount].correct_answer;
+
     $("#question").append(
       `<div id="right-btn" class="btn"> ${rightAnswer} </div>
            <div class="btn wrong-btn"> ${wrongAnswer[0]}</div>
@@ -66,21 +67,9 @@ const GAME = {
            <div class="btn wrong-btn"> ${wrongAnswer[2]}</div>`
     );
     //interaction
-    document
-      .getElementById("right-btn")
-      .addEventListener("click", () => {
-        this.rightButtonClick()
-      })
 
-    // document.querySelectorAll(".wrong-btn").forEach((button) => {
-    //   button.addEventListener("click", this.wrongButtonClick);
-    // });
-
-    document.querySelectorAll(".wrong-btn").forEach((button) => {
-      button.addEventListener("click", () => {
-        this.wrongButtonClick(event)
-      });
-    });
+    $("#right-btn").click(this.rightButtonClick.bind(this))
+    $(".wrong-btn").click(this.wrongButtonClick.bind(this))
   },
 
   nextQuestion() {
@@ -101,13 +90,16 @@ const GAME = {
       this.orderAnswersRandomly()
     }
   },
+
   updateQuestionCounter() {
     $("#questionCount").text(`${this.displayQuestionNumber}/10`)
   },
+
   updateScoreCounter() {
     this.score++;
     $("#scoreCount").text(`Score: ${this.score}`);
   },
+
   updateLife() {
     this.life--;
     $("#life").text("Life: " + this.life);
@@ -118,6 +110,7 @@ const GAME = {
       $("#score").fadeIn();
     }
   },
+
   checkGameOver() {
     if (++this.clickCount === this.numberOfquestions) {
       $("#next-btn").css("display", "none");
@@ -127,9 +120,11 @@ const GAME = {
 
     }
   },
+
   nextButton() {
     $("#next-btn").fadeIn();
   },
+
   wrongButtonClick(event) {
     this.offButtons();
     this.nextButton();
@@ -139,6 +134,7 @@ const GAME = {
     event.target.classList.add("wrong");
     this.updateLife();
   },
+
   rightButtonClick() {
     this.offButtons();
     this.nextButton();
@@ -147,55 +143,31 @@ const GAME = {
     $("#solution").text("Correct :)");
     $("#right-btn").addClass("right");
     this.updateScoreCounter();
-
   },
+
   offButtons() {
-    // $('.wrong-btn').each(()=> {
-    //   $(this).unbind('click')
-    // })
-    // $('#right-btn').unbind('click')
-
-    document
-      .getElementById("right-btn")
-      .removeEventListener("click", () => {
-        this.rightButtonClick()
-      })
-
-    document.querySelectorAll(".wrong-btn").forEach((elem) => {
-      elem.removeEventListener("click", () => {
-        this.wrongButtonClick()
-      })
-    })
+    $("#right-btn").off('click').toggleClass('not-clickable')
+    $(".wrong-btn").off('click').toggleClass('not-clickable')
   },
-  
+
   orderAnswersRandomly() {
     //multiple answers
     if ($('.wrong-btn').length > 1) {
-      let randomIndex = Math.floor(Math.random() * 5)
+      let randomIndex = Math.floor(Math.random() * 4)
+      console.log(randomIndex)
       $('.wrong-btn').eq(randomIndex).before($('#right-btn'))
-      if (randomIndex === 0) {
-        $('.wrong-btn').eq(randomIndex).before($('#right-btn'))
-      }
-      if (randomIndex === 1) {
-        $('.wrong-btn').eq(randomIndex).before($('#right-btn'))
-      }
-      if (randomIndex === 2) {
-        $('.wrong-btn').eq(randomIndex).after($('#right-btn'))
-      }
-      if (randomIndex === 3) {
-        $('.wrong-btn').eq(2).after($('#right-btn'))
-      }
+      if (randomIndex === 0) { $('.wrong-btn').eq(randomIndex).before($('#right-btn')) }
+      if (randomIndex === 1) { $('.wrong-btn').eq(randomIndex).before($('#right-btn')) }
+      if (randomIndex === 2) { $('.wrong-btn').eq(randomIndex).before($('#right-btn')) }
+      if (randomIndex === 3) { $('.wrong-btn').eq(2).after($('#right-btn')) }
     } else {
       //true or false
       let randomNumber = Math.floor(Math.random() * 10)
-      if (randomNumber < 5) {
-        $('.wrong-btn').eq(0).before($('#right-btn'))
-      }
-      if (randomNumber >= 5) {
-        $('.wrong-btn').eq(0).after($('#right-btn'))
-      }
+      if (randomNumber < 5) { $('.wrong-btn').eq(0).before($('#right-btn')) }
+      else { $('.wrong-btn').eq(0).after($('#right-btn')) }
     }
   },
+
   reset() {
     this.life = 3;
     this.questionCount = 0;
@@ -208,6 +180,7 @@ const GAME = {
     $("#score").fadeOut();
     $("#landing").fadeIn();
   },
+
   async init() {
     await GAME.loadQuestions();
 

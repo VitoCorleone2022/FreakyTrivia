@@ -9,16 +9,21 @@
     padding: 10px;
     background-color: rgb(183, 183, 183);
     cursor: pointer;
-    color: white;
+    color: black;
     border-radius: 10px;
 }
-
+.container{
+      background-color: #FF99EF;
+     
+}
 .wrong {
     background-color: rgb(250, 41, 22);
+    color: white;
 }
 
 .right {
     background-color: rgb(100, 253, 164);
+    color: white;
 }
 
 #question-btn {
@@ -26,18 +31,33 @@
 }
 
 #play-btn {
-    /* display: none; */
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-weight: bolder
 }
-
+#play-btn:hover{
+    background-color:#AA008F;
+    cursor:pointer;
+    color:white;
+    font-weight: bold;
+}
 #next-btn {
     display: none;
+    font-weight: bold;
+    color: black;
 }
 
 #next-btn:hover {
     background-color:#AA008F;
+    color:white;
+    font-weight: bold;
     
 }
-
+.not-clickable {
+    cursor: default;
+}
 #score {
     display: none;
 }
