@@ -1,17 +1,20 @@
 //game variables
 const GAME = {
   life: 3,
-  questionCount: 0,
+  questionCount: -1,  //array
   score: 0,
   clickCount: 0,
+  numberOfquestions: 10,
+  displayQuestionNumber: 0,
   questions: null,
 
   async loadQuestions() {
     await axios
-      .get("https://opentdb.com/api.php?amount=10&category=31&type=boolean")
+      .get("https://opentdb.com/api.php?amount=10&category=31")
       .then((questions) => {
         console.log(this);
-        this.questions = questions.data.results;
+        console.log(questions.data.results);
+        this.questions = questions.data.results
       })
       .catch((err) => {
         console.log("rejected: ", err);
@@ -24,12 +27,11 @@ const GAME = {
     let rightAnswer = this.questions[this.questionCount].correct_answer;
 
     $("#question").append(
-      `<div id="wrong-btn" class="btn"> ${wrongAnswer} </div>`
+      `<div id="wrong-btn" class="btn wrong-btn"> ${wrongAnswer} </div>`
     );
     $("#question").append(
       `<div id="right-btn" class="btn"> ${rightAnswer} </div>`
     );
-
     //interaction
     $("#right-btn").click(() => {
       console.log("this is the right answer:" + rightAnswer);
@@ -37,9 +39,9 @@ const GAME = {
       $("#right-btn").addClass("right");
       $("#right-btn").off("click");
       $("#wrong-btn").off("click");
-      this.checkGameOver();
       this.updateScoreCounter();
       this.nextButton();
+      this.checkGameOver();
     });
 
     $("#wrong-btn").click(() => {
@@ -48,46 +50,59 @@ const GAME = {
       $("#wrong-btn").addClass("wrong");
       $("#right-btn").off("click");
       $("#wrong-btn").off("click");
-      this.checkGameOver();
       this.updateLife();
       this.nextButton();
+      this.checkGameOver();
     });
   },
 
   createMultipleQuestion() {
-    let wrongAnswer = questions.data.results[0].incorrect_answers;
-    let rightAnswer = questions.data.results[0].correct_answer;
+    let wrongAnswer = this.questions[this.questionCount].incorrect_answers[0];
+    let rightAnswer = this.questions[this.questionCount].correct_answer;
     $("#question").append(
       `<div id="right-btn" class="btn"> ${rightAnswer} </div>
            <div class="btn wrong-btn"> ${wrongAnswer[0]}</div>
            <div class="btn wrong-btn"> ${wrongAnswer[1]}</div>
            <div class="btn wrong-btn"> ${wrongAnswer[2]}</div>`
     );
-
+    //interaction
     document
       .getElementById("right-btn")
-      .addEventListener("click", rightButtonClick);
+      .addEventListener("click", () => {
+        this.rightButtonClick()
+      })
+
+    // document.querySelectorAll(".wrong-btn").forEach((button) => {
+    //   button.addEventListener("click", this.wrongButtonClick);
+    // });
 
     document.querySelectorAll(".wrong-btn").forEach((button) => {
-      button.addEventListener("click", wrongButtonClick);
+      button.addEventListener("click", () => {
+        this.wrongButtonClick(event)
+      });
     });
   },
 
   nextQuestion() {
+    this.questionCount++
+    this.displayQuestionNumber++
+    this.updateQuestionCounter()
     $("#question").html(
       `<div> ${this.questions[this.questionCount].question} </div>`
     );
 
     if (this.questions[this.questionCount].type === "boolean") {
       this.createBooleanQuestion();
+      this.orderAnswersRandomly()
     }
 
     if (this.questions[this.questionCount].type === "multiple") {
       this.createMultipleQuestion();
+      this.orderAnswersRandomly()
     }
   },
   updateQuestionCounter() {
-    $("#questionCount").text(`${this.questionCount++}/10`);
+    $("#questionCount").text(`${this.displayQuestionNumber}/10`)
   },
   updateScoreCounter() {
     this.score++;
@@ -104,10 +119,12 @@ const GAME = {
     }
   },
   checkGameOver() {
-    if (++this.clickCount === 10) {
-      $("#game").fadeOut();
+    if (++this.clickCount === this.numberOfquestions) {
+      $("#next-btn").css("display", "none");
+      $("#game").delay(3000).fadeOut();
       $("#finalScore").text(`Your final score is: ${this.score}`);
-      $("#score").fadeIn();
+      $("#score").delay(3000).fadeIn();
+
     }
   },
   nextButton() {
@@ -116,7 +133,7 @@ const GAME = {
   wrongButtonClick(event) {
     this.offButtons();
     this.nextButton();
-    this.clickCounter();
+    this.checkGameOver();
 
     $("#solution").text("Wrong :c");
     event.target.classList.add("wrong");
@@ -125,21 +142,59 @@ const GAME = {
   rightButtonClick() {
     this.offButtons();
     this.nextButton();
-    this.clickCounter();
+    this.checkGameOver();
 
     $("#solution").text("Correct :)");
     $("#right-btn").addClass("right");
     this.updateScoreCounter();
+
   },
   offButtons() {
-    console.log(document.getElementById("right-btn"));
+    // $('.wrong-btn').each(()=> {
+    //   $(this).unbind('click')
+    // })
+    // $('#right-btn').unbind('click')
+
     document
       .getElementById("right-btn")
-      .removeEventListener("click", rightButtonClick);
+      .removeEventListener("click", () => {
+        this.rightButtonClick()
+      })
 
     document.querySelectorAll(".wrong-btn").forEach((elem) => {
-      elem.removeEventListener("click", wrongButtonClick);
-    });
+      elem.removeEventListener("click", () => {
+        this.wrongButtonClick()
+      })
+    })
+  },
+  
+  orderAnswersRandomly() {
+    //multiple answers
+    if ($('.wrong-btn').length > 1) {
+      let randomIndex = Math.floor(Math.random() * 5)
+      $('.wrong-btn').eq(randomIndex).before($('#right-btn'))
+      if (randomIndex === 0) {
+        $('.wrong-btn').eq(randomIndex).before($('#right-btn'))
+      }
+      if (randomIndex === 1) {
+        $('.wrong-btn').eq(randomIndex).before($('#right-btn'))
+      }
+      if (randomIndex === 2) {
+        $('.wrong-btn').eq(randomIndex).after($('#right-btn'))
+      }
+      if (randomIndex === 3) {
+        $('.wrong-btn').eq(2).after($('#right-btn'))
+      }
+    } else {
+      //true or false
+      let randomNumber = Math.floor(Math.random() * 10)
+      if (randomNumber < 5) {
+        $('.wrong-btn').eq(0).before($('#right-btn'))
+      }
+      if (randomNumber >= 5) {
+        $('.wrong-btn').eq(0).after($('#right-btn'))
+      }
+    }
   },
   reset() {
     this.life = 3;
@@ -159,6 +214,7 @@ const GAME = {
     $("#play-btn").click(() => {
       $("#landing").fadeOut();
       $("#game").fadeIn();
+      this.updateQuestionCounter()
       this.nextQuestion();
     });
 
@@ -169,7 +225,7 @@ const GAME = {
     });
 
     $("#replay-btn").click(() => {
-      reset();
+      this.reset();
     });
   },
 };
