@@ -1,5 +1,18 @@
+/* mobile first */
+@font-face {
+    font-family: "Orbitron";
+    src: url(https://fonts.gstatic.com/s/orbitron/v25/yMJMMIlzdpvBhQQL_SC3X9yhF25-T1nyGy6BoWgz.woff2) format("truetype");
+}
+
+p, div, button {
+    font-family: 'Open Sans', sans-serif; 
+}
+body{
+    background-color: #FF99EF;
+}
+
 #logo {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Orbitron';
     color:#AA008F;
 }
 
@@ -12,30 +25,36 @@
     color: black;
     border-radius: 10px;
 }
-.container{
-      background-color: #FF99EF;
-     
-}
 .wrong {
     background-color: rgb(250, 41, 22);
     color: white;
+    font-weight: bold;
 }
 
 .right {
     background-color: rgb(100, 253, 164);
     color: white;
+    font-weight: bold;
 }
 
 #question-btn {
     display: none;
 }
 
+#right-btn {
+    border: 2px solid green;
+}
+
+
 #play-btn {
-    display: block;
-    width: 50px;
-    height: 50px;
+    position: relative;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    font-weight: bolder
+    font-weight: bolder;
+    margin: auto;
+    font-size: 50px;
+    top: 250px;
 }
 #play-btn:hover{
     background-color:#AA008F;
@@ -43,6 +62,12 @@
     color:white;
     font-weight: bold;
 }
+.image{
+        background-image: url(../assets/cheese.png);
+        background-repeat:no-repeat ;
+        background-position: center;
+        height: 600px;
+  }      
 #next-btn {
     display: none;
     font-weight: bold;
@@ -65,4 +90,93 @@
 
 #game {
     display: none;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    background-color: #FF99EF;
+    text-align: center;
+    height: 100%;
+    padding: 1%;
+    
+    
+}
+#replay-btn{
+    background-color:#AA008F;
+    color:white;
+    font-weight: bold;
+}
+
+@media (max-width:600px) {
+
+    body {
+        background-color: #FF99EF;
+        border: 0;
+        margin:0;
+    }
+ 
+    #logo {
+        margin:0;
+        padding-top:50px;
+        height:20%;
+        font-size: 70px;
+    }
+    
+    #intro {
+        padding:20px 70px;
+
+        font-size: 40px;
+    }
+    
+    #outter-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    #landing {
+
+    }
+
+    div#logo, div#play-btn {
+        justify-content: center;
+    }
+
+    .image {
+        background-image: url(../assets/cheese.png);
+        background-repeat:no-repeat ;
+        background-position: center;
+        /* width: 200px; */
+        height: 500px;
+
+   }
+
+   #play-btn {
+
+    font-size: 30px;
+    position: relative;
+    top: 200px;
+    box-shadow: 0px 0px 35px #000;
+   }
+   #play-btn:hover{
+    background-color: #AA008F;
+   }
+
+   #life, #scoreCount, #questionCount {
+    font-size: 25px;
+   }
+   #question div  {
+    font-size: 30px;
+    
+ }
+   #question div.btn {
+    display:block;
+    margin-top: 20px;
+    font-size: 20px;
+   }
+
+   #questionCount {
+    margin-bottom:50px;
+   }
 }
