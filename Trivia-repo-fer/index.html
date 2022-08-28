@@ -14,6 +14,7 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <script src="scripts/main.js" defer></script>
+    <script src="scripts/speech.js" defer></script>
 </head>
 
 <body>
@@ -21,25 +22,33 @@
     <div id="outter-wrapper" class="container">
         <div><h1 id="logo">FrikiTrivia</h1></div>
         <div id="landing">
-            <div id="intro">Are you ready to challenge yourself?</div>
+            <div id="intro">Are you ready to challenge yourself? <span id="intro-btn">&#9834;</span></div>
             <br>
-            <div class="image"><button id="play-btn">Play</button></div>
-            
+            <div class="image">
+                <button id="play-btn">Play</button>
+            </div>
         </div>
-
+        
         <div id="game">
             <div id="life">Life: 3</div>
             <div id="scoreCount">Score: 0</div>
             <div id="questionCount">0/10</div>
-            <button id="question-btn">Get a question</button>
-            <div id="question"></div>
+            <!-- <button id="question-btn">Get a question</button> -->
+            <div id="question-card"></div>
             <div id="solution"></div>
             <div id="next-btn" class="btn">Next</div>
         </div>
 
         <div id="score">
             <div id="finalScore">Your final score is: </div>
-            <div id="replay-btn" class="btn">Play again</div>
+            <div id="replay-btn" class="btn">Replay</div>
+        </div>
+        <div id="ai">
+            <h4>Accessibility: Voice recognition service</h4>
+            <p class="phrase">Click / Tap and say a command</p>
+            <button id="voice-btn">FrikiTrivia</button>
+            <p class="speechOutput">...diagnostic messages</p>
+            <p class="voiceRecorded">...</p>
         </div>
 
     </div>

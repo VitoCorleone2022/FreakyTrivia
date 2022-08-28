@@ -4,27 +4,80 @@
     src: url(https://fonts.gstatic.com/s/orbitron/v25/yMJMMIlzdpvBhQQL_SC3X9yhF25-T1nyGy6BoWgz.woff2) format("truetype");
 }
 
-p, div, button {
-    font-family: 'Open Sans', sans-serif; 
+h4,
+p,
+div,
+button {
+    font-family: 'Open Sans', sans-serif;
 }
-body{
+
+body {
     background-color: #FF99EF;
+}
+
+#outter-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 5%;
 }
 
 #logo {
     font-family: 'Orbitron';
-    color:#AA008F;
+    color: #AA008F;
+    font-size:60px;
+}
+
+#intro {
+    font-size: 30px;
+}
+
+
+#intro-btn, #speaker-btn {
+    cursor: pointer;
+    color: white;
+    font-weight: 900;
+    font-size: 40px;
+    text-shadow: 0px 0px 10px #000;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        text-shadow: 0px 0px 20px #ffffff;
+    }
+
+    33% {
+        text-shadow: 0px 0px 0 #ffffff;
+    }
+
+    66% {
+        text-shadow: 0px 0px 20px #ffffff;
+    }
+
+    100% {
+        text-shadow: 0px 0px 0 #ffffff;
+    }
+
+
+}
+
+#life,
+#scoreCount,
+#questionCount {
+    font-size: 20px;
 }
 
 .btn {
     display: inline-block;
-    margin:5px;
+    margin: 5px;
     padding: 10px;
     background-color: rgb(183, 183, 183);
     cursor: pointer;
     color: black;
     border-radius: 10px;
 }
+
 .wrong {
     background-color: rgb(250, 41, 22);
     color: white;
@@ -35,6 +88,11 @@ body{
     background-color: rgb(100, 253, 164);
     color: white;
     font-weight: bold;
+}
+
+#question {
+    font-size: 30px;
+    margin:20px auto 30px auto;
 }
 
 #question-btn {
@@ -53,21 +111,74 @@ body{
     border-radius: 50%;
     font-weight: bolder;
     margin: auto;
-    font-size: 50px;
-    top: 250px;
+    font-size: 30px;
+    top: 200px;
+    border: 0;
+    box-shadow: 0px 0px 35px #000;
+    -webkit-animation: spinBtn 9s ease-in-out infinite;
+    -moz-animation: spinBtn 10s ease-in-out infinite;
+    animation: spinBtn 10s ease-in-out infinite;
 }
-#play-btn:hover{
-    background-color:#AA008F;
-    cursor:pointer;
-    color:white;
+
+#play-btn:hover {
+    background-color: #AA008F;
+    cursor: pointer;
+    color: white;
     font-weight: bold;
 }
-.image{
-        background-image: url(../assets/cheese.png);
-        background-repeat:no-repeat ;
-        background-position: center;
-        height: 600px;
-  }      
+
+.image {
+    background-image: url(../assets/cheese.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 500px;
+    width: 500px;
+    margin:auto;
+    -webkit-animation: spin 10s ease-in-out infinite;
+    -moz-animation: spin 10s ease-in-out infinite;
+    animation: spin 10s ease-in-out infinite;
+}
+
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+
+@-moz-keyframes spinBtn {
+    100% {
+        -moz-transform: rotate(-360deg);
+    }
+}
+
+@-webkit-keyframes spinBtn {
+    100% {
+        -webkit-transform: rotate(-360deg);
+    }
+}
+
+@keyframes spinBtn {
+    100% {
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+}
+
+
 #next-btn {
     display: none;
     font-weight: bold;
@@ -75,14 +186,16 @@ body{
 }
 
 #next-btn:hover {
-    background-color:#AA008F;
-    color:white;
+    background-color: #AA008F;
+    color: white;
     font-weight: bold;
-    
+
 }
+
 .not-clickable {
     cursor: default;
 }
+
 #score {
     display: none;
 }
@@ -90,93 +203,123 @@ body{
 
 #game {
     display: none;
+    padding: 0 50px 50px 50px;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
     background-color: #FF99EF;
     text-align: center;
     height: 100%;
     padding: 1%;
-    
-    
+
+
 }
-#replay-btn{
-    background-color:#AA008F;
-    color:white;
+
+#replay-btn {
+    background-color: #AA008F;
+    color: white;
     font-weight: bold;
 }
+
+#ai {
+    margin-top: 20px;
+    background-color: rgb(116 116 116 / 50%);
+    border-radius: 5px 65px 65px 65px;
+    width: 80%;
+    box-shadow: 0px 0px 15px #fff;
+    margin: auto;
+}
+
+#ai button {
+    font-size: 20px;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 0px 0px 35px #000;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 0px 0px 10px #000;
+    background-color: #AA008F;
+    color: #fff;
+    padding: 10px;
+    animation: pulse 2s infinite;
+}
+
+.voiceRecorded {
+    display: inline-block;
+}
+
+
+
 
 @media (max-width:600px) {
 
     body {
         background-color: #FF99EF;
         border: 0;
-        margin:0;
+        margin: 0;
     }
- 
+
     #logo {
-        margin:0;
-        padding-top:50px;
-        height:20%;
+        margin: 0;
+        padding-top: 50px;
+        height: 20%;
         font-size: 70px;
     }
-    
-    #intro {
-        padding:20px 70px;
 
+    #intro {
+        padding: 20px 70px;
         font-size: 40px;
     }
-    
-    #outter-wrapper {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
 
-    #landing {
 
-    }
+    #landing {}
 
-    div#logo, div#play-btn {
+    div#logo,
+    div#play-btn {
         justify-content: center;
     }
 
     .image {
         background-image: url(../assets/cheese.png);
-        background-repeat:no-repeat ;
+        background-repeat: no-repeat;
         background-position: center;
         /* width: 200px; */
-        height: 500px;
+        height: 390px;
 
-   }
+    }
 
-   #play-btn {
+    #play-btn {
+        font-size: 30px;
+        position: relative;
+        top: 144px;
+        box-shadow: 0px 0px 35px #000;
+    }
 
-    font-size: 30px;
-    position: relative;
-    top: 200px;
-    box-shadow: 0px 0px 35px #000;
-   }
-   #play-btn:hover{
-    background-color: #AA008F;
-   }
+    #play-btn:hover {
+        background-color: #AA008F;
+    }
 
-   #life, #scoreCount, #questionCount {
-    font-size: 25px;
-   }
-   #question div  {
-    font-size: 30px;
-    
- }
-   #question div.btn {
-    display:block;
-    margin-top: 20px;
-    font-size: 20px;
-   }
+    #life,
+    #scoreCount,
+    #questionCount {
+        font-size: 25px;
+    }
 
-   #questionCount {
-    margin-bottom:50px;
-   }
+    #question {
+        font-size: 30px;
+    }
+
+    #question .btn {
+        display: block;
+        margin-top: 20px;
+        font-size: 20px;
+    }
+
+    #questionCount {
+        margin-bottom: 20px;
+    }
+
 }

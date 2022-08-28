@@ -10,7 +10,7 @@ const GAME = {
 
   async loadQuestions() {
     await axios
-      .get("https://opentdb.com/api.php?amount=10&category=31&type=multiple")
+      .get("https://opentdb.com/api.php?amount=10&category=31&type=boolean")
       .then((questions) => {
         console.log(this);
         console.log(questions.data.results);
@@ -26,10 +26,10 @@ const GAME = {
     let wrongAnswer = this.questions[this.questionCount].incorrect_answers[0];
     let rightAnswer = this.questions[this.questionCount].correct_answer;
 
-    $("#question").append(
+    $("#question-card").append(
       `<div id="wrong-btn" class="btn wrong-btn"> ${wrongAnswer} </div>`
     );
-    $("#question").append(
+    $("#question-card").append(
       `<div id="right-btn" class="btn"> ${rightAnswer} </div>`
     );
     //interaction
@@ -60,7 +60,7 @@ const GAME = {
     let wrongAnswer = this.questions[this.questionCount].incorrect_answers;
     let rightAnswer = this.questions[this.questionCount].correct_answer;
 
-    $("#question").append(
+    $("#question-card").append(
       `<div id="right-btn" class="btn"> ${rightAnswer} </div>
            <div class="btn wrong-btn"> ${wrongAnswer[0]}</div>
            <div class="btn wrong-btn"> ${wrongAnswer[1]}</div>
@@ -76,9 +76,15 @@ const GAME = {
     this.questionCount++
     this.displayQuestionNumber++
     this.updateQuestionCounter()
-    $("#question").html(
-      `<div> ${this.questions[this.questionCount].question} </div>`
+    $("#question-card").html(
+      `<div id="question"> ${this.questions[this.questionCount].question} <span id="speaker-btn">&#9834;</span></div>`
     );
+
+    $('#speaker-btn').click(() => {
+      let questionTalk = $('#question').text()
+      this.sayThis(questionTalk);
+    })
+    
 
     if (this.questions[this.questionCount].type === "boolean") {
       this.createBooleanQuestion();
@@ -168,11 +174,23 @@ const GAME = {
     }
   },
 
+  sayThis(whatever) {
+      let msg = new SpeechSynthesisUtterance();
+      msg.text = whatever
+      msg.lang = 'en-GB'
+      msg.pitch = 2
+      msg.rate = 1
+      window.speechSynthesis.speak(msg);
+      console.log(msg)
+      console.log(whatever)
+  },
+
   reset() {
     this.life = 3;
     this.questionCount = 0;
     this.score = 0;
     this.clickCount = 0;
+    $("#solution").text("");
     $("#life").text("Life: " + this.life);
     $("#scoreCount").text(`Score: ${this.score}`);
     $("#questionCount").text(`${this.questionCount}/10`);
@@ -206,3 +224,5 @@ const GAME = {
 (async function () {
   await GAME.init();
 })();
+
+
