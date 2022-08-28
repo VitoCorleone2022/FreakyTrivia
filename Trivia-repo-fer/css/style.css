@@ -24,8 +24,12 @@ body {
 
 #logo {
     font-family: 'Orbitron';
-    color: #AA008F;
     font-size:60px;
+}
+
+#logo a {
+    color: #AA008F;
+    text-decoration: none;
 }
 
 #intro {

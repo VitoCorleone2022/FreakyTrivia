@@ -11,7 +11,8 @@ var commands = [
   'replay',
   'true',
   'false',
-  'question'
+  'question',
+  'challenge'
 ];
 
 let phrasePara = document.querySelector('.phrase');
@@ -21,39 +22,29 @@ let diagnosticPara = document.querySelector('.speechOutput');
 let voiceBtn = document.getElementById('voice-btn')
 
 function talkToMe() {
-  console.log('click')
   voiceBtn.disabled = true;
   voiceBtn.textContent = '... listening';
 
-  let play = commands[0];
-  let next = commands[1];
-  let replay = commands[2];
-  let trueBtn = commands[3];
-  let falseBtn = commands[4];
-  let askQuestion = commands[5];
+  // To ensure case consistency while checking with the returned output text 
+  let play = commands[0].toLowerCase();
+  let next = commands[1].toLowerCase();
+  let replay = commands[2].toLowerCase();
+  let trueBtn = commands[3].toLowerCase();
+  let falseBtn = commands[4].toLowerCase();
+  let askQuestion = commands[5].toLowerCase();
+  let challenge = commands[6].toLowerCase();
 
-
-  // To ensure case consistency while checking with the returned output text
-  play = play.toLowerCase();
-  next = next.toLowerCase();
-  replay = replay.toLowerCase();
-  trueBtn = trueBtn.toLowerCase();
-  falseBtn = falseBtn.toLowerCase();
-  askQuestion = askQuestion.toLowerCase();
-
-  // phrasePara.textContent = play;
-  // resultPara.textContent = 'Right or wrong?';
-  // resultPara.style.background = 'rgba(0,0,0,0.2)';
-  // diagnosticPara.textContent = '...diagnostic messages';
-
-  let grammar = `${play}`;
   let recognition = new SpeechRecognition();
   let speechRecognitionList = new SpeechGrammarList();
-  speechRecognitionList.addFromString(grammar, 1);
+  for (let i = 0; i < commands.length; i++) {
+    speechRecognitionList.addFromString(commands[i], 1);
+  }
   recognition.grammars = speechRecognitionList;
   recognition.lang = 'en-UK';
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
+  // recognition.continuous = true;
+  // console.log(recognition.grammars)
 
   recognition.start();
 
@@ -70,56 +61,70 @@ function talkToMe() {
     diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
 
     //command play
-    if (speechResult === play && $('#landing').is(':visible')) {
-      resultPara.textContent = `I heard ${play} correctly `;
-      console.log(resultPara)
-      resultPara.style.background = 'lime';
+    switch (speechResult) {
+      case play:
+        if ($('#landing').is(':visible')) {
+          resultPara.textContent = `I heard ${play} correctly `;
+          resultPara.style.background = 'lime';
+          $("#play-btn").trigger("click")
+          $("#voice-btn").delay(2000).trigger("click")
+        }
+        
+        break;
+        case next:
+          if ($('#solution').html() !== '') {
+          resultPara.textContent = `I heard ${next} correctly `;
+          resultPara.style.background = 'lime';
+          $("#next-btn").trigger("click")
+          $("#voice-btn").delay(2000).trigger("click")
+        }
+        break;
 
-      $("#play-btn").trigger("click")
-      $("#voice-btn").delay(2000).trigger("click")
+      case trueBtn:
+        resultPara.textContent = `I heard ${trueBtn} correctly `;
+        resultPara.style.background = 'lime';
+        $("div:contains('True')").trigger("click")
+        $("#voice-btn").delay(2000).trigger("click")
+        break;
 
-    } else if (speechResult === next && $('#solution').html() !== '') {
-      resultPara.textContent = `I heard ${next} correctly `;
-      resultPara.style.background = 'lime';
-      diagnosticPara.textContent = '...diagnostic messages';
+      case falseBtn:
+        resultPara.textContent = `I heard ${falseBtn} correctly `;
+        resultPara.style.background = 'lime';
+        $("div:contains('False')").trigger("click")
+        $("#voice-btn").delay(2000).trigger("click")
+        break;
 
-      $("#next-btn").trigger("click")
-      $("#voice-btn").delay(2000).trigger("click")
+      case replay:
+        if ($('#replay-btn').is(':visible')) {
+          console.log(replay);
+          resultPara.textContent = `I heard ${replay} correctly `;
+          resultPara.style.background = 'lime';
+          $("#replay-btn").trigger("click")
+          $("#voice-btn").delay(2000).trigger("click")
+        }
+        break;
 
+      case askQuestion:
+        resultPara.textContent = `I heard ${askQuestion} correctly `;
+        resultPara.style.background = 'lime';
+        $('#speaker-btn').trigger("click")
+        $("#voice-btn").delay(2000).trigger("click")
+        break;
 
-    } else if (speechResult === replay && $('#replay-btn').is(':visible')) {
-      resultPara.textContent = `I heard ${replay} correctly `;
-      resultPara.style.background = 'lime';
-      diagnosticPara.textContent = '...diagnostic messages';
+      case challenge:
+        resultPara.textContent = `I heard ${challenge} correctly `;
+        resultPara.style.background = 'lime';
+        $('#intro-btn').trigger("click")
+        $("#voice-btn").delay(2000).trigger("click")
 
-      $("#replay-btn").trigger("click")
-      $("#voice-btn").delay(2000).trigger("click")
+        break;
 
-    } else if (speechResult === trueBtn) {
-      resultPara.textContent = `I heard ${trueBtn} correctly `;
-      resultPara.style.background = 'lime';
-      $("div:contains('True')").trigger("click")
-      $("#voice-btn").delay(2000).trigger("click")
-
-    } else if (speechResult === falseBtn) {
-      resultPara.textContent = `I heard ${falseBtn} correctly `;
-      resultPara.style.background = 'lime';
-
-      $("div:contains('False')").trigger("click")
-      $("#voice-btn").delay(2000).trigger("click")
-
-    } else if (speechResult === askQuestion) {
-      resultPara.textContent = `I heard ${askQuestion} correctly `;
-      resultPara.style.background = 'lime';
-
-      $('#speaker-btn').trigger("click")
-      $("#voice-btn").delay(2000).trigger("click")
-
-    } else {
-      resultPara.textContent = 'That is not an option my friend.';
-      resultPara.style.background = 'red';
+      default:
+        resultPara.textContent = 'That is not an option my friend.';
+        resultPara.style.background = 'red';
+        $("#voice-btn").delay(2000).trigger("click")
+      // break;
     }
-
 
     console.log('Confidence: ' + event.results[0][0].confidence);
   }
@@ -127,13 +132,12 @@ function talkToMe() {
   recognition.onspeechend = function () {
     recognition.stop();
     voiceBtn.disabled = false;
-    voiceBtn.textContent = 'Tap/click and give a voice command';
-
+    voiceBtn.textContent = 'FrikiTrivia';
   }
 
   recognition.onerror = function (event) {
     voiceBtn.disabled = false;
-    voiceBtn.textContent = 'Tap/click and give a voice command';
+    voiceBtn.textContent = 'FrikiTrivia';
     diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
   }
 
@@ -181,7 +185,7 @@ function talkToMe() {
 
 $('#intro').click(() => {
   let introTalk = $('#intro').text()
-  sayThis(introTalk);
+  GAME.sayThis(introTalk);
 })
 
 
