@@ -189,9 +189,11 @@ const GAME = {
 
   renderAvailableCommands() {
     // available commands
+    
     if ($('#landing').is(':visible')) {
       $('#available-commands').text('yes | challenge | Freaky trivia ')
     }
+
     if ($('#user-area').is(':visible')) {
       $('#available-commands').text('play')
     }
@@ -204,6 +206,8 @@ const GAME = {
     if ($('#score').is(':visible')) {
       $('#available-commands').text('replay')
     }
+
+
   },
 
   createUser() {
@@ -234,6 +238,7 @@ const GAME = {
     $("#next-btn").css("display", "none");
     $("#score").fadeOut();
     $("#landing").fadeIn();
+
   },
 
   async init() {
@@ -273,7 +278,9 @@ const GAME = {
 
     $("#replay-btn").click(() => {
       this.reset();
-      this.renderAvailableCommands()
+      //the line above needs to be sorted with renderAvailableCommands(), but
+      // for some reason, it does not work here :(
+      $('#available-commands').text('yes | challenge | Freaky trivia ')
 
     });
 

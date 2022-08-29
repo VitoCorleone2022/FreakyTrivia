@@ -1,6 +1,4 @@
-
 // accessibility: voice recognition
-
 
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
@@ -41,7 +39,7 @@ function talkToMe() {
   let finish = commands[8].toLowerCase();
   let frikitrivia = commands[9].toLowerCase();
 
-
+  //Speech recognition list
   let recognition = new SpeechRecognition();
   let speechRecognitionList = new SpeechGrammarList();
   for (let i = 0; i < commands.length; i++) {
@@ -67,22 +65,6 @@ function talkToMe() {
     // We then return the transcript property of the SpeechRecognitionAlternative object 
     var speechResult = event.results[0][0].transcript.toLowerCase();
     diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
-
-    // available commands
-
-
-    if ($('#game').is(':visible')) {
-      $('#available-commands').text('Available commands: question | true | false | next')
-    }
-
-    if ($('#score').is(':visible')) {
-      $('#available-commands').text('Available commands: replay')
-    }
-
-
-
-
-
 
     //command play
     switch (speechResult) {
@@ -145,7 +127,6 @@ function talkToMe() {
 
       case yes:
         if ($('#landing').is(':visible')) {
-
           resultPara.textContent = `I heard ${yes} correctly `;
           resultPara.classList.add("right");
           $('#yes-btn').trigger("click")
@@ -171,13 +152,13 @@ function talkToMe() {
         msg.pitch = 2
         msg.rate = 1
         window.speechSynthesis.speak(msg);
+        $("#voice-btn").delay(2000).trigger("click")
         break;
 
       default:
         resultPara.textContent = 'That is not an option my friend.';
         resultPara.classList.remove("right");
         resultPara.classList.add("wrong");
-
         $("#voice-btn").delay(2000).trigger("click")
       // break;
     }
