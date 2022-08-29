@@ -42,6 +42,7 @@ const GAME = {
       this.nextButton();
       this.updateScoreCounter();
       this.checkGameOver();
+      this.renderAvailableCommands();
     });
 
     $("#wrong-btn").click(() => {
@@ -53,6 +54,7 @@ const GAME = {
       this.nextButton();
       this.updateLife();
       this.checkGameOver();
+      this.renderAvailableCommands();
     });
   },
 
@@ -138,6 +140,7 @@ const GAME = {
     $("#solution").text("Wrong :c");
     event.target.classList.add("wrong");
     this.updateLife();
+    
   },
 
   rightButtonClick() {
@@ -194,7 +197,11 @@ const GAME = {
     }
 
     if ($('#game').is(':visible')) {
-      $('#available-commands').text('question | true | false | next | finish')
+      $('#available-commands').text('question | true | false | next')
+
+      if (this.life === 0 || this.clickCount ===10) {
+        $('#available-commands').text('question | true | false | next | finish')
+      }
     }
 
     if ($('#score').is(':visible')) {
@@ -235,34 +242,50 @@ const GAME = {
   async init() {
     await GAME.loadQuestions();
 
+    // $("#yes-btn").click(() => {
+    //   $("#landing").fadeOut();
+    //   $("#user-area").fadeIn();
+    //   this.updateQuestionCounter()
+    //   this.nextQuestion();
+    // });
+
+
+    // $("#play-btn").click(() => {
+    //   $("#user-area").fadeOut();
+    //   $("#game").fadeIn();
+    //   this.updateQuestionCounter()
+    //   this.nextQuestion();
+    // });
+    this.renderAvailableCommands()
+
     $("#yes-btn").click(() => {
       $("#landing").fadeOut();
-      $("#user-area").fadeIn();
-      this.updateQuestionCounter()
-      this.nextQuestion();
-    });
-
-    $("#play-btn").click(() => {
-      $("#user-area").fadeOut();
       $("#game").fadeIn();
       this.updateQuestionCounter()
       this.nextQuestion();
+      this.renderAvailableCommands()
     });
 
     $("#next-btn").click(() => {
       this.nextQuestion();
       $("#solution").text("");
       $("#next-btn").fadeOut();
+      this.renderAvailableCommands()
+
     });
 
     $("#replay-btn").click(() => {
       this.reset();
+      this.renderAvailableCommands()
+
     });
 
     $("#finish-btn").click(() => {
       $("#game").fadeOut();
       $("#score").fadeIn();
       $("#finish-btn").fadeOut();
+      this.renderAvailableCommands()
+
     });
 
   },
