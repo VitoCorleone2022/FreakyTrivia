@@ -128,10 +128,12 @@ function talkToMe() {
         break;
 
       case askQuestion:
-        resultPara.textContent = `I heard ${askQuestion} correctly `;
-        resultPara.classList.add("right");
-        $('#speaker-btn').trigger("click")
-        $("#voice-btn").delay(2000).trigger("click")
+        if ($('#game').is(':visible')) {
+          resultPara.textContent = `I heard ${askQuestion} correctly `;
+          resultPara.classList.add("right");
+          $('#speaker-btn').trigger("click")
+          $("#voice-btn").delay(2000).trigger("click")
+        }
         break;
 
       case challenge:
@@ -160,14 +162,16 @@ function talkToMe() {
         }
         break;
 
-        case frikitrivia:
-          let msg = new SpeechSynthesisUtterance();
-          msg.text = 'Frikitrivia is the best app ever. Please suscribe to Frikitrivia channel for updates. And most importantly, money, money is what we need!'
-          msg.lang = 'en-GB'
-          msg.pitch = 2
-          msg.rate = 1
-          window.speechSynthesis.speak(msg);
-          break;
+      case frikitrivia:
+        resultPara.textContent = `I heard ${frikitrivia} correctly `;
+        resultPara.classList.add("right");
+        let msg = new SpeechSynthesisUtterance();
+        msg.text = 'Frikitrivia is the best app ever. Please suscribe to Frikitrivia channel for updates. And most importantly, money, money is what we need!'
+        msg.lang = 'en-GB'
+        msg.pitch = 2
+        msg.rate = 1
+        window.speechSynthesis.speak(msg);
+        break;
 
       default:
         resultPara.textContent = 'That is not an option my friend.';

@@ -184,20 +184,39 @@ const GAME = {
     console.log(whatever)
   },
 
-  createUser() {
-   
+  renderAvailableCommands() {
+    // available commands
+    if ($('#landing').is(':visible')) {
+      $('#available-commands').text('yes | challenge | Freaky trivia ')
+    }
+    if ($('#user-area').is(':visible')) {
+      $('#available-commands').text('play')
+    }
+
+    if ($('#game').is(':visible')) {
+      $('#available-commands').text('question | true | false | next | finish')
+    }
+
+    if ($('#score').is(':visible')) {
+      $('#available-commands').text('replay')
+    }
+
   },
-  
+
+  createUser() {
+
+  },
+
   deleteAllUsers() {
     window.localStorage.clear();
     console.log(window.localStorage)
-    
+
   },
 
 
   displayUsers() {
 
-   },
+  },
 
   reset() {
     this.life = 3;
