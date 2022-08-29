@@ -140,7 +140,7 @@ const GAME = {
     $("#solution").text("Wrong :c");
     event.target.classList.add("wrong");
     this.updateLife();
-    
+
   },
 
   rightButtonClick() {
@@ -195,19 +195,15 @@ const GAME = {
     if ($('#user-area').is(':visible')) {
       $('#available-commands').text('play')
     }
-
     if ($('#game').is(':visible')) {
       $('#available-commands').text('question | true | false | next')
-
-      if (this.life === 0 || this.clickCount ===10) {
+      if (this.life === 0 || this.clickCount === 10) {
         $('#available-commands').text('question | true | false | next | finish')
       }
     }
-
     if ($('#score').is(':visible')) {
       $('#available-commands').text('replay')
     }
-
   },
 
   createUser() {
@@ -227,13 +223,14 @@ const GAME = {
 
   reset() {
     this.life = 3;
-    this.questionCount = 0;
+    this.questionCount = -1;
     this.score = 0;
     this.clickCount = 0;
+    this.displayQuestionNumber = 0;
     $("#solution").text("");
     $("#life").text("Life: " + this.life);
     $("#scoreCount").text(`Score: ${this.score}`);
-    $("#questionCount").text(`${this.questionCount}/10`);
+    $("#questionCount").text(`${this.displayQuestionNumber}/10`);
     $("#next-btn").css("display", "none");
     $("#score").fadeOut();
     $("#landing").fadeIn();
