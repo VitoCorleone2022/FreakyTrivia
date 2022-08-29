@@ -75,7 +75,6 @@ function talkToMe() {
           $("#play-btn").trigger("click")
           $("#voice-btn").delay(2000).trigger("click")
         }
-
         break;
       case next:
         if ($('#solution').html() !== '') {
@@ -165,49 +164,40 @@ function talkToMe() {
 
     console.log('Confidence: ' + event.results[0][0].confidence);
   }
-
   recognition.onspeechend = function () {
     recognition.stop();
     voiceBtn.disabled = false;
     voiceBtn.textContent = 'FrikiTrivia';
   }
-
   recognition.onerror = function (event) {
     voiceBtn.disabled = false;
     voiceBtn.textContent = 'FrikiTrivia';
     diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
   }
-
   recognition.onaudiostart = function (event) {
     //Fired when the user agent has started to capture audio.
     console.log('SpeechRecognition.onaudiostart');
   }
-
   recognition.onaudioend = function (event) {
     //Fired when the user agent has finished capturing audio.
     console.log('SpeechRecognition.onaudioend');
   }
-
   recognition.onend = function (event) {
     //Fired when the speech recognition service has disconnected.
     console.log('SpeechRecognition.onend');
   }
-
   recognition.onnomatch = function (event) {
     //Fired when the speech recognition service returns a final result with no significant recognition. This may involve some degree of recognition, which doesn't meet or exceed the confidence threshold.
     console.log('SpeechRecognition.onnomatch');
   }
-
   recognition.onsoundstart = function (event) {
     //Fired when any sound — recognisable speech or not — has been detected.
     console.log('SpeechRecognition.onsoundstart');
   }
-
   recognition.onsoundend = function (event) {
     //Fired when any sound — recognisable speech or not — has stopped being detected.
     console.log('SpeechRecognition.onsoundend');
   }
-
   recognition.onspeechstart = function (event) {
     //Fired when sound that is recognised by the speech recognition service as speech has been detected.
     console.log('SpeechRecognition.onspeechstart');
