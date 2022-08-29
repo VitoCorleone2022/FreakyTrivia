@@ -39,8 +39,8 @@ const GAME = {
       $("#right-btn").addClass("right");
       $("#right-btn").off("click");
       $("#wrong-btn").off("click");
-      this.updateScoreCounter();
       this.nextButton();
+      this.updateScoreCounter();
       this.checkGameOver();
     });
 
@@ -50,8 +50,8 @@ const GAME = {
       $("#wrong-btn").addClass("wrong");
       $("#right-btn").off("click");
       $("#wrong-btn").off("click");
-      this.updateLife();
       this.nextButton();
+      this.updateLife();
       this.checkGameOver();
     });
   },
@@ -84,7 +84,7 @@ const GAME = {
       let questionTalk = $('#question').text()
       this.sayThis(questionTalk);
     })
-    
+
 
     if (this.questions[this.questionCount].type === "boolean") {
       this.createBooleanQuestion();
@@ -111,19 +111,18 @@ const GAME = {
     $("#life").text("Life: " + this.life);
     if (this.life === 0) {
       console.log("game over!");
-      $("#game").fadeOut();
+      $("#next-btn").css("display", "none");
       $("#finalScore").text(`Your final score is: ${this.score}`);
-      $("#score").fadeIn();
+      $("#finish-btn").fadeIn();
     }
   },
 
   checkGameOver() {
     if (++this.clickCount === this.numberOfquestions) {
+      console.log("game over!");
       $("#next-btn").css("display", "none");
-      $("#game").delay(3000).fadeOut();
+      $("#finish-btn").fadeIn();
       $("#finalScore").text(`Your final score is: ${this.score}`);
-      $("#score").delay(3000).fadeIn();
-
     }
   },
 
@@ -175,15 +174,30 @@ const GAME = {
   },
 
   sayThis(whatever) {
-      let msg = new SpeechSynthesisUtterance();
-      msg.text = whatever
-      msg.lang = 'en-GB'
-      msg.pitch = 2
-      msg.rate = 1
-      window.speechSynthesis.speak(msg);
-      console.log(msg)
-      console.log(whatever)
+    let msg = new SpeechSynthesisUtterance();
+    msg.text = whatever
+    msg.lang = 'en-GB'
+    msg.pitch = 2
+    msg.rate = 1
+    window.speechSynthesis.speak(msg);
+    console.log(msg)
+    console.log(whatever)
   },
+
+  createUser() {
+   
+  },
+  
+  deleteAllUsers() {
+    window.localStorage.clear();
+    console.log(window.localStorage)
+    
+  },
+
+
+  displayUsers() {
+
+   },
 
   reset() {
     this.life = 3;
@@ -202,8 +216,15 @@ const GAME = {
   async init() {
     await GAME.loadQuestions();
 
-    $("#play-btn").click(() => {
+    $("#yes-btn").click(() => {
       $("#landing").fadeOut();
+      $("#user-area").fadeIn();
+      this.updateQuestionCounter()
+      this.nextQuestion();
+    });
+
+    $("#play-btn").click(() => {
+      $("#user-area").fadeOut();
       $("#game").fadeIn();
       this.updateQuestionCounter()
       this.nextQuestion();
@@ -218,6 +239,13 @@ const GAME = {
     $("#replay-btn").click(() => {
       this.reset();
     });
+
+    $("#finish-btn").click(() => {
+      $("#game").fadeOut();
+      $("#score").fadeIn();
+      $("#finish-btn").fadeOut();
+    });
+
   },
 };
 
@@ -226,3 +254,4 @@ const GAME = {
 })();
 
 
+// GAME.createUser()

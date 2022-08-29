@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,25 +18,43 @@
 </head>
 
 <body>
-    
+
     <div id="outter-wrapper" class="container">
-        <div><h1 id="logo"><a href="/">FrikiTrivia</a>  </h1></div>
+        <div>
+            <h1 id="logo"><a href="/">FrikiTrivia</a> </h1>
+        </div>
         <div id="landing">
+            <div>
+            </div>
             <div id="intro">Are you ready to challenge yourself? <span id="intro-btn">&#9834;</span></div>
             <br>
-            <div class="image">
-                <button id="play-btn">Play</button>
+            <div class="cheese">
+                <button id="yes-btn">Yes</button>
             </div>
         </div>
         
+        <div id="user-area">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="username" name="username" required>
+            <button type="submit" onclick="GAME.createUser()">Create User</button>
+            <br><br><br>
+            <button  onclick="GAME.deleteAllUsers()">Delete Users</button>
+            <br><br><br>
+            <button  onclick="GAME.displayUsers()">Display Users</button>
+            <br><br>
+            <button id="play-btn">Play</button>
+        </div>
+
         <div id="game">
+            <div id="user">MyName</div>
             <div id="life">Life: 3</div>
             <div id="scoreCount">Score: 0</div>
             <div id="questionCount">0/10</div>
-            <!-- <button id="question-btn">Get a question</button> -->
             <div id="question-card"></div>
             <div id="solution"></div>
             <div id="next-btn" class="btn">Next</div>
+            <div id="finish-btn" class="btn">Finish</div>
+
         </div>
 
         <div id="score">
@@ -45,7 +63,8 @@
         </div>
         <div id="ai">
             <h4>Accessibility: Voice recognition service</h4>
-            <p class="phrase">Click / Tap and say a command</p>
+            <p class="phrase">Click / Tap and say a command:</p>
+            <p id="available-commands">challenge | play</p>
             <button id="voice-btn">FrikiTrivia</button>
             <p class="speechOutput">...diagnostic messages</p>
             <p class="voiceRecorded">...</p>
@@ -53,4 +72,5 @@
 
     </div>
 </body>
+
 </html>
