@@ -160,7 +160,7 @@ function talkToMe() {
         resultPara.classList.remove("right");
         resultPara.classList.add("wrong");
         $("#voice-btn").delay(2000).trigger("click")
-      // break;
+        // break;
     }
 
     console.log('Confidence: ' + event.results[0][0].confidence);
@@ -217,18 +217,6 @@ function talkToMe() {
     console.log('SpeechRecognition.onstart');
   }
 }
-
-
-
-$('#intro').click(() => {
-  let introTalk = $('#intro').text()
-  GAME.sayThis(introTalk);
-})
-
-
-
-
-
 
 const checkBrowserCompatibility = () => {
   if ("speechSynthesis" in window) {

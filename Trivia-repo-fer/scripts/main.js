@@ -289,8 +289,13 @@ const GAME = {
       $("#score").fadeIn();
       $("#finish-btn").fadeOut();
       this.renderAvailableCommands()
-
     });
+
+    $('#intro').click(() => {
+      let introTalk = $('#intro').text()
+      GAME.sayThis(introTalk);
+    })
+    
 
   },
 };
