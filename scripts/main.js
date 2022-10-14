@@ -10,7 +10,7 @@ const GAME = {
 
   async loadQuestions() {
     await axios
-      .get("https://opentdb.com/api.php?amount=10&category=31&type=boolean")
+      .get("https://opentdb.com/api.php?amount=10&category=27&type=boolean")
       .then((questions) => {
         console.log(this);
         console.log(questions.data.results);
