@@ -14,12 +14,14 @@ button {
 }
 
 body {
-    background-color: #FF99EF;
+    background: rgb(122,108,108);
+    background: radial-gradient(circle, rgba(122,108,108,1) 0%, rgba(24,20,20,1) 100%);
+    color: #fff;
     border: 0;
     margin: 0;
 }
 
-#outter-wrapper {
+#outer-wrapper {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -29,7 +31,6 @@ body {
 .container {
     display: flex;
     flex-direction: column;
-    background-color: #FF99EF;
     text-align: center;
     height: 100%;
     padding: 1%;
@@ -38,10 +39,12 @@ body {
 #logo {
     font-family: 'Orbitron';
     font-size: 60px;
+    /* background: rgb(255,255,255); */
+    /* color: radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgba(0,0,0,1) 100%); */
 }
 
 #logo a {
-    color: #AA008F;
+    color:#00aa97;;
     text-decoration: none;
 }
 
@@ -132,7 +135,7 @@ body {
 
 .btn {
     display: inline-block;
-    margin: 5px;
+    margin: 15px;
     padding: 10px;
     background-color: rgb(183, 183, 183);
     cursor: pointer;
@@ -141,13 +144,13 @@ body {
 }
 
 .wrong {
-    background-color: rgb(250, 41, 22);
+    background-color: rgb(173 15 0);;
     color: white;
     font-weight: bold;
 }
 
 .right {
-    background-color: #00af49;
+    background-color: #00aa97;
     color: white;
     font-weight: bold;
 }
@@ -181,7 +184,7 @@ body {
 
 
 #play-btn:hover, #yes-btn:hover {
-    background-color: #AA008F;
+    background-color: #00aa97;;
     cursor: pointer;
     color: white;
     font-weight: bold;
@@ -194,7 +197,7 @@ body {
 }
 
 #next-btn:hover, #finish-btn:hover {
-    background-color: #AA008F;
+    background-color: #00aa97;
     color: white;
     font-weight: bold;
 }
@@ -214,7 +217,7 @@ body {
 }
 
 #replay-btn {
-    background-color: #AA008F;
+    background-color: #00aa97;
     color: white;
     font-weight: bold;
 }
@@ -233,7 +236,7 @@ body {
 }
 
 #ai {
-    background-color: rgb(0 0 0 /100%);
+    background-color: rgb(24 24 24);
     border-radius: 35px 35px 35px 5px;
     max-width: 80%;
     box-shadow: 20px 20px 35px #000000ad;
@@ -257,7 +260,7 @@ body {
     border-radius: 10px;
     border: 0;
     box-shadow: 0px 0px 10px #000;
-    background-color: #AA008F;
+    background-color: #00aa97;
     color: #fff;
     padding: 10px;
     margin: 10px;
@@ -286,6 +289,7 @@ p#available-commands {
         padding: 50px 0 30px 0;
         height: 20%;
         font-size: 40px;
+
     }
 
     #game {
@@ -329,7 +333,7 @@ p#available-commands {
     }
 
     #play-btn:hover {
-        background-color: #AA008F;
+        background-color: #00aa97;
     }
 
     #ai {
